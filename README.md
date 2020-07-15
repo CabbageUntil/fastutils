@@ -58,7 +58,7 @@ public class FileController {
 
 3、创建好文件后直接运行项目，项目运行好以后，在浏览器中输入：`http://localhost:8092/`,出现下图说明项目运行成功了，可以继续下一步
 
-![image-20200714164058744](C:\Users\11079\AppData\Roaming\Typora\typora-user-images\image-20200714164058744.png)
+![image-20200714164058744](http://49.233.134.67/group1/M00/00/00/MemGQ18O1FuAdG6zAABZn7_J31c814.png)
 
 
 
