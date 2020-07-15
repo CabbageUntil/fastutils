@@ -17,7 +17,23 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-  mvc:
-    view:
-      prefix: /WEB-INF/
-      suffix: .jsp
+
+  datasource:
+    username: root
+    password: Phj161023@@
+    url: jdbc:mysql://127.0.0.1:3306/fastdfs_sys?serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+
+mybatis:
+  type-aliases-package: com.cabbage.bean
+  mapper-locations: classpath:mapper/*.xml
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

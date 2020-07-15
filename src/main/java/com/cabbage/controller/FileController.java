@@ -1,7 +1,11 @@
 package com.cabbage.controller;
 
 
+import com.cabbage.bean.User;
+import com.cabbage.service.UserService;
 import com.cabbage.utils.FastDFSClientUtil;
+import com.core.enums.ResultCode;
+import com.core.result.Result;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,21 +26,30 @@ public class FileController {
     @Autowired
     private FastDFSClientUtil dfsClient;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/")
     public String uploadPage() {
         return "Hello";
     }
 
     @PostMapping("/upload")
-    public String fdfsUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public Result fdfsUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        Result result = new Result();
         String fileUrl = null;
         try {
             fileUrl = dfsClient.uploadFile(file);
+            result.setResultCode(ResultCode.SUCCESS);
+            result.setData(fileUrl);
             request.setAttribute("msg", "成功上传文件，  '" + fileUrl + "'");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileUrl;
+
+        userService.addUser(new User());
+        return result;
+       // return new Result(ResultCode.REQUEST_NOT_FOUND.code(), "小伙子你有点调皮哦！(*^▽^*)");
     }
 
     /*
@@ -78,7 +91,7 @@ public class FileController {
 
     /**
      * http://localhost/deleteFile?filePath=group1/M00/00/00/wKgIZVzZaRiAZemtAARpYjHP9j4930.jpg
-     * @param fileName  group1/M00/00/00/wKgIZVzZaRiAZemtAARpYjHP9j4930.jpg
+     * @param filePath  group1/M00/00/00/wKgIZVzZaRiAZemtAARpYjHP9j4930.jpg
      * @param request
      * @param response
      * @return
